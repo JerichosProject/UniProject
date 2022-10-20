@@ -12,7 +12,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="/plugins/morrisjs/morris.css" />
-		<meta name="description" content="Some content" />
+		<meta name="description" content="Graph study for University, contact me 1702201@student.uwtsd.ac.uk" />
 		<meta name="author" content="Created by Jericho Uzzell" />
 
         <link href="/plugins/bootstrap5/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -21,23 +21,99 @@
     </head>
 
     <body>
-        <div class="col-lg-8 mx-auto p-3 py-md-5">
-            <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                    <span class="fs-4">Graph test</span>
-                </a>
-            </header>
-            <main>
-                <div class="row g-5">
-                    <div class="col-md-12" id="graph-main" style="display:none;">
-						<div id="graph-main-div"></div>
-                    </div>
-                </div>
-            </main>
-            <footer class="pt-5 my-5 text-muted border-top">
-                Created by the Bootstrap team &middot; &copy; 2021
-            </footer>
-        </div>
+		<div id="body-welcome">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-sm-12 offset-md-2 col-md-8 offset-lg-2 col-lg-8 offset-xl-2 col-xl-8">
+						<div class="row">
+							<div class="mt-3">
+								<div class="alert alert-info">
+									<h4>Please wait!</h4>
+									<p>We are just getting the website ready!</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="body-login" style="display:none;">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-sm-12 offset-md-2 col-md-8 offset-lg-2 col-lg-8 offset-xl-2 col-xl-8">
+						<div class="row">
+							<div class="mt-3">
+								<h2>Welcome!</h2>
+								<p>
+									This website is a University project, trying to understand data presentation in a usability study.<br/>
+									You can enter a name, age and gender if you would like or click the anonymous button and we will generate details for you.
+								</p>
+							</div>
+							<div class="mt-3">
+								<div class="row g-3">
+									<div class="col-md-8">
+										<label for="body-login-form-name" class="form-label">Name</label>
+										<input type="text" class="form-control" id="body-login-form-name">
+									</div>
+									<div class="col-md-4">
+										<label for="body-login-form-age" class="form-label">Age</label>
+										<input type="number" class="form-control" id="body-login-form-age">
+									</div>
+									<div class="col-md-12">
+										<label for="body-login-form-gender" class="form-label">Gender</label>
+										<input type="text" class="form-control" id="body-login-form-gender">
+									</div>
+									<div class="col-md-12">
+										<label for="body-login-form-anonymous" class="form-label">Anonymous</label>
+									    <input class="form-check-input" type="checkbox" id="body-login-form-anonymous">
+									</div>
+									<div class="col-md-12">
+									    <button class="btn btn-block btn-xl btn-primary" id="body-login-form-continue">Continue</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="body-session" style="display:none;">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-sm-12 offset-md-2 col-md-8 offset-lg-2 col-lg-8 offset-xl-2 col-xl-8">
+						<div class="row">
+							<div class="mt-3">
+								<h2>Generating questions!</h2>
+								<p>
+									We are just generating some questions now, please wait!
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="body-session-questions" style="display:none;">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-sm-12 offset-md-2 col-md-8 offset-lg-2 col-lg-8 offset-xl-2 col-xl-8">
+						<div class="row">
+							<div class="mt-3">
+								<button class="btn btn-warning btn-lg" id="body-session-questions-end">End</button>
+								<button class="btn btn-danger btn-lg" id="body-session-questions-withdraw">Withdraw!</button> 
+								<button class="btn btn-info btn-lg" id="body-session-questions-anonymous" style="display:none">Anonymous</button> 
+							</div>
+							<div class="mt-1 text-end">
+								<h1>
+									<span class="text-secondary" id="body-session-questions-question-number"></span>/10
+								</h1>
+							</div>
+							<div class="mt-1" id="body-session-questions-graph"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </body>
     
 
@@ -45,58 +121,8 @@
     <script src="/plugins/bootstrap5/bootstrap.min.js" type="text/javascript"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="/plugins/morrisjs/morris.min.js" type="text/javascript"></script>
-
-	<script>
-		$(document).ready(function() {
-			//graph-main-div
-			
-			$('#graph-main').show();
-			let Lin = Morris.Area({
-				element: 'graph-main-div',
-				data:
-				[
-					{m:'2021-02',item1:2,item2:5,item3:4},
-					{m:'2021-03',item1:3,item2:6,item3:2},
-					{m:'2021-04',item1:7,item2:2,item3:4},
-					{m:'2021-05',item1:1,item2:7,item3:5},
-					{m:'2021-06',item1:3,item2:3,item3:7}
-				],
-				xLabels: 'day',
-				xkey: 'm',
-				ykeys: ['item1','item2','item3'],
-				labels: ['item1','item2','item3'],
-				// labels: headers_name,
-				xLabelFormat: function (d) {
-					var weekdays = new Array(7);
-					weekdays[0] = "SUN";
-					weekdays[1] = "MON";
-					weekdays[2] = "TUE";
-					weekdays[3] = "WED";
-					weekdays[4] = "THU";
-					weekdays[5] = "FRI";
-					weekdays[6] = "SAT";
-
-					return weekdays[d.getDay()] + ' ' + 
-						("0" + (d.getMonth() + 1)).slice(-2) + '-' + 
-						("0" + (d.getDate())).slice(-2);
-				},
-				pointSize: 5,
-				hideHover: 'false',
-				// lineColors: colours,
-				lineWidth: 5,
-				xLabelAngle: 45,
-				fillOpacity: 0.0,
-				resize: true,
-				pointFillColors: ['#fff'],
-				pointStrokeColors: ['black'],
-				// gridIntegers: true,
-				//dateFormat: function (d) {
-				//    var ds = new Date(d);
-				//    return ds.getDate() + ' ' + months[ds.getMonth()];
-				//},
-				behaveLikeLine: true,
-				parseTime: true //
-			});
-		});
-	</script>
+    <script src="/plugins/sweetalerts2/js/sweetalert2.all.min.js"></script>
+	<script src="/scripts/js/errors.js" type="text/javascript"></script>
+	<script src="/scripts/js/validator.js" type="text/javascript"></script>
+	<script src="/scripts/js/home.js" type="text/javascript"></script>
 </html>
