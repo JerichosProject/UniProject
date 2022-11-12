@@ -13,8 +13,8 @@
     $database=array(
         'host'=>'localhost',
         'dbname'=>'graph_db',
-        'username'=>'jericho',
-        'password'=>'yF21zkk8XujhbYM'
+        'username'=>'root',
+        'password'=>'YXNY9cBysiRJYHp'
     );
     if(!isset($GLOBALS['database'])) $GLOBALS['database']=null;
 
