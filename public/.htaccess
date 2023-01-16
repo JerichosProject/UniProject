@@ -1,8 +1,12 @@
-DirectoryIndex disabled
-Options -Indexes
 DirectoryIndex index.php
-RewriteEngine on
-RewriteBase /
+
+Options +FollowSymLinks
+Options +Indexes
+
+# START NEW CONDITIONS
+ReWriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
+
+
+RewriteRule ^([^/\.]+)/?$ index.php?p=$1 [L]
