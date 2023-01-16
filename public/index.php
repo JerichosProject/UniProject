@@ -2,7 +2,7 @@
 	require('scripts/main.php');
 
 	if(!defined('UniProjects')) die(json_encode(array('result'=>0,'message'=>'Outside of the network?')));
-    print_r(get_page::get_url())
+    print_r(get_page::get_url($_GET));
 ?>
 <!DOCTYPE php>
 <html>

@@ -37,9 +37,10 @@
     }
 
     class get_page {
-        public static function get_url() {
+        public static function get_url($__get=null) {
             global $_GET;
             $get=$_GET;
+            if($__get!=null) $get=$__get;
             $data=[];
             if(isset($get['path'])) {
                 $get=explode('/',$get['path']);
