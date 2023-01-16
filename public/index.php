@@ -2,13 +2,13 @@
 	require('scripts/main.php');
 
 	if(!defined('UniProjects')) die(json_encode(array('result'=>0,'message'=>'Outside of the network?')));
-    echo '<p class="text-white">';
-        print_r($_SERVER);
-        echo '<br/>';
-        print_r($_GET);
-        echo '<br/>';
-        print_r(get_page::get_url($_GET));
-    echo '</p>';
+    // echo '<p class="text-white">';
+    //     print_r($_SERVER);
+    //     echo '<br/>';
+    //     print_r($_GET);
+    //     echo '<br/>';
+    //     print_r(get_page::get_url($_GET));
+    // echo '</p>';
 ?>
 <!DOCTYPE php>
 <html>
