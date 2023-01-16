@@ -1,6 +1,6 @@
 var debug=true;
 //signing in [
-    function initalise() {
+    function initaliseHome() {
         $.post('/scripts/home.php',{type:'session_started'},function(data) {
             if(debug) console.log(data);
             if(!isJSON(data)) {error_cannotread();return;}
@@ -8,216 +8,101 @@ var debug=true;
             if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
             if(!isDataValid(data)) {error_errordatanotval(data);return;}
             let result=data.data;
-            $('#body-welcome').fadeOut(500);
             if(result==0) {
                 //not logged in
-                $('#body-login').delay(800).fadeIn(500);
+                $('#auth div[attr=init]').slideUp(500);
+                $('#auth div[attr=signin]').delay(800).slideDown(500);
             }else{
                 //logged in, ask them if they want to continue!
-                if(data.anonymous==0) $('#body-session-questions-anonymous').show();
-                $('#body-session').fadeIn(500);
-                getNewQuestion();
+                $('#auth').fadeOut(500);
+                getWindowPane(true);
+                $('#app').delay(800).fadeIn(500);
             }
         });
     }
 
-    $(document).on('click','#body-login-form-anonymous',function() {
-        let checked=$('#body-login-form-anonymous').is(':checked');
-        if(checked) $('#body-login-form-name,#body-login-form-age,#body-login-form-gender').attr('disabled','disabled');
-        else $('#body-login-form-name,#body-login-form-age,#body-login-form-gender').removeAttr('disabled');
-    });
+    $(document).on('click','#auth div[attr=signin] button',function() {
+        let password=$('#auth div[attr=signin] input').eq(0).val();
+        if(password=='') return;
 
-    $(document).on('click','#body-login-form-continue',function() {
-        let name=$('#body-login-form-name').val();
-        let age=$('#body-login-form-age').val();
-        let gender=$('#body-login-form-gender').val();
-        let anonymous=$('#body-login-form-anonymous').is(':checked');
-        if(!anonymous && name=='' && age=='' && gender=='') {
-            Swal.fire('Validation error!','You must have a name, age and gender filled in or click the anonymous checkbox.','error');
-            return;
-        }
-
-        let post={
-            name:name,
-            age:age,
-            gender:gender,
-            anonymous:anonymous
-        };
-
-        $.post('/scripts/home.php',{type:'start_session',post:post},function(data) {
+        $.post('/scripts/home.php',{type:'start_session',post:{password:password}},function(data) {
             if(debug) console.log(data);
             if(!isJSON(data)) {error_cannotread();return;}
             data=JSON.parse(data);
             if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
-            //registered
-            hideEverything();
-            if(data.anonymous==0) $('#body-session-questions-anonymous').show();
-            $('#body-login').fadeOut(500);
-            $('#body-session').delay(800).fadeIn(500);
-            getNewQuestion();
+
+            $('#auth').fadeOut(500);
+            getWindowPane(true);
+            $('#app').delay(800).fadeIn(500);
         });
     });
 //end signing in ]
 
-// withdraw/exit [
-    function withdrawFromSurvey() {
-        hideEverything();
-        $.post('/scripts/home.php',{type:'session_withdraw'},function(data) {
-            if(debug) console.log(data);
-            if(!isJSON(data)) {error_cannotread();return;}
-            data=JSON.parse(data);
-            if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
-            $('#body-login').show();
-        });
-    }
-    function anonymiseSurvey() {
-        $.post('/scripts/home.php',{type:'session_anonymous'},function(data) {
-            if(debug) console.log(data);
-            if(!isJSON(data)) {error_cannotread();return;}
-            data=JSON.parse(data);
-            if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
-        });
-    }
-    function endSurvey() {
-        $.post('/scripts/home.php',{type:'session_endsurvey'},function(data) {
-            if(debug) console.log(data);
-            if(!isJSON(data)) {error_cannotread();return;}
-            data=JSON.parse(data);
-            if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
-            $('#body-login').show();
-        });
-    }
-    $(document).on('click','#body-session-questions-withdraw',function() {
-        Swal.fire({
-            title:'Withdrawing from survey!',
-            html:'Withdrawing from this survey is your choice, but note that withdrawing will remove all your previous answers (if answered any)!<br/>If you want to close this survey instead, please click the exit button instead!<br/>If you want to anonymised the survey, click the anonymous button!',
-            // html:true,
-            showCancelButton:true,
-            confirmButtonText:'Withdraw',
-        }).then((result) => {
-            if(result.isConfirmed) {
-                withdrawFromSurvey();
-            }
-        });
-    });
-    $(document).on('click','#body-session-questions-end',function() {
-        Swal.fire({
-            title:'Ending the survey!',
-            html:'Are you sure you want to end the survey?',
-            // html:true,
-            showCancelButton:true,
-            confirmButtonText:'Withdraw',
-        }).then((result) => {
-            if(result.isConfirmed) {
-                endSurvey();
-            }
-        });
-    });
-    $(document).on('click','#body-session-questions-anonymous',function() {
-        Swal.fire({
-            title:'Anonymising survey!',
-            html:'Making this survey anonymous will remove all statistical ability from the end report. Instead, it can offer some statistical data with age and gender excluded from the data.<br/>This report would prefer you to be anonymous rather than enter random details.',
-            // html:true,
-            showCancelButton:true,
-            confirmButtonText:'Anonymise',
-        }).then((result) => {
-            if(result.isConfirmed) {
-                anonymiseSurvey();
-            }
-        });
-    });
-//end withdraw/exit
-
-// questions [
-    function getNewQuestion() {
-        hideEverything();
-        $.post('/scripts/home.php',{type:'generate_new_question'},function(data) {
+// show all products [
+    function showAllProducts() {
+        $('.app-window').hide();
+        $('.app-window[attr=home]').show();
+        $.post('/scripts/home.php',{type:'get_products'},function(data) {
             if(debug) console.log(data);
             if(!isJSON(data)) {error_cannotread();return;}
             data=JSON.parse(data);
             if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
             if(!isDataValid(data)) {error_errordatanotval(data);return;}
-            $('#body-session-questions-question-number').text(data.data.question_number);
+            let result=data.data;
+            
+            let out='';
+            $.each(result.products,function(index,product) {
+                // out+='<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">';
+                    out+='<div class="col mb-5">';
+                        out+='<div class="card h-100">';
+                            out+='<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">';
+                            out+='<div class="card-body p-4">';
+                                out+='<div class="text-center">';
+                                    out+='<h5 class="fw-bolder">'+product.name+'</h5>';
+                                    out+='£'+product.price+(product.stock<50?' / '+product.stock+' left':'');
+                                out+='</div>';
+                            out+='</div>';
+                            out+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                                out+='<div class="text-center">';
+                                    out+='<button class="btn btn-sm btn-outline-dark mt-auto app-nav-update" attr="item" barcode="'+product.barcode+'" uid="'+product.id+'">View</button> ';
+                                    out+='<button class="btn btn-sm btn-outline-warning mt-auto app-nav-shop-list" attr="add" barcode="'+product.barcode+'" uid="'+product.id+'">Add to list</button>';
+                                out+='</div>';
 
+                                if(product.department!='' && result.dept[parseInt(product.department)]!=undefined) {
+                                    out+='<div class="text-left"><small><b>Department</b> '+result.dept[product.department].name+'</small></div>';
+                                }
 
-            let response=data.data.response;
-            let graph={
-                data:new Array(),
-                ykeys:['item1'],
-                labels:['item1'],
-                xkey:'m',
-                xlabel:'day',
-                linecolours:['#ggrdd']
-            };
-            if(response.graph_type==4) {
-                $.each(response.response,function(k,i) {
-                    graph.data.push({m:i,item1:1});
-                });
-            }
-
-			$('#body-session-questions-graph').show();
-			let Lin = Morris.Area({
-				element: 'body-session-questions-graph',
-				data:graph.data,
-				// [
-				// 	{m:'2021-02',item1:2,item2:5,item3:6},
-				// 	{m:'2021-03',item1:3,item2:6,item3:9},
-				// 	{m:'2021-04',item1:2,item2:4,item3:9},
-				// 	{m:'2021-05',item1:1,item2:5,item3:7},
-				// 	{m:'2021-06',item1:3,item2:6,item3:10}
-				// ],
-				xLabels:graph.xlabel,
-				xkey:graph.xkey,
-                labels:graph.labels,
-                ykeys:graph.ykeys,
-				// ykeys: ['item1','item2','item3'],
-				// labels: ['item1','item2','item3'],
-				xLabelFormat: function (d) {
-					var weekdays = new Array(7);
-					weekdays[0] = "SUN";
-					weekdays[1] = "MON";
-					weekdays[2] = "TUE";
-					weekdays[3] = "WED";
-					weekdays[4] = "THU";
-					weekdays[5] = "FRI";
-					weekdays[6] = "SAT";
-
-					return weekdays[d.getDay()] + ' ' + 
-						("0" + (d.getMonth() + 1)).slice(-2) + '-' + 
-						("0" + (d.getDate())).slice(-2);
-				},
-				pointSize: 5,
-				hideHover: 'false',
-				lineColors: graph.linecolours,
-				lineWidth: 5,
-				xLabelAngle: 1,
-				fillOpacity: 0.1,
-				resize: true,
-				pointFillColors: ['#fff'],
-				pointStrokeColors: ['black'],
-				// gridIntegers: true,
-				//dateFormat: function (d) {
-				//    var ds = new Date(d);
-				//    return ds.getDate() + ' ' + months[ds.getMonth()];
-				//},
-				behaveLikeLine: true,
-				parseTime: true //
-			});
-
-            $('#body-session-questions').fadeIn(500);
+                                if(product.aisle!='' && result.aisles[product.aisle]!=undefined) {
+                                    out+='<div class="text-left"><small><b>Aisle</b> ('+result.aisles[product.aisle].number+') '+result.aisles[product.aisle].name+'<br/><b>Shelf</b> '+product.shelf+'</small></div>';
+                                }
+                            out+='</div>';
+                        out+='</div>';
+                    out+='</div>';
+                // out+='</div>';
+            });
+            $('.app-window[attr=home]').html('<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'+out+'</div>');
+        }).always(function(){
         });
     }
-    // $(document).on()
+// end of show all products ]
 
-//end questions ]
+// window pane [
+    function getWindowPane(caller) {
+        //  if caller equals true then its being called via the onload func;
 
-function hideEverything() {
-    $('#body-session-questions,#body-session,#body-login,#body-welcome,#body-session').hide();
-}
+        let url=(window.location.pathname).substring(1);
+        url=url.split('/');
+
+        if(url[0]!=undefined) {
+            if(url[0]=='home' || url[0]=='') {
+                //  show products!
+                showAllProducts();
+            }else if(url[0]=='logout') logout();
+        }
+
+    }
+// end of window pane ]
 
 $(document).ready(function(){
-    $('#body-login-form-anonymous').prop('checked',false);
-    $('#body-login-form-name,#body-login-form-age,#body-login-form-gender').removeAttr('disabled');
-    $('#body-login-form-name,#body-login-form-age,#body-login-form-gender').val('');
-    initalise();
+    initaliseHome();
 });

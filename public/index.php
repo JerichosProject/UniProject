@@ -9,23 +9,19 @@
         <title>Smart Shop - Being developed</title>
 		<?php include('page_modules/header.php'); ?>
     </head>
-
-    <head>
-        <title>Site Down - Smart Shop</title>
-		<?php include('page_modules/header.php'); ?>
-    </head>
     <body class="bg-dark">
-        <div class="d-flex align-items-center justify-content-center vh-100 text-white">
-            <div class="text-center">
-                <h1 class="display-1 fw-bold">Being developed</h1>
-                <p class="lead">
-                    Site is being developed...will be published soon?
-                </p>
-            </div>
-        </div>
+        <?php
+            if(get_page::get_url()[0]=='admin') require_once('pages/admin_page.php');
+            elseif(get_page::get_url()[0]=='about') require_once('pages/about_page.php');
+            else require_once('pages/home_page.php');
+        ?>
     </body>
     
 
-	<script src="/scripts/js/home.js" type="text/javascript"></script>
-	<?php include('page_modules/footer.php'); ?>
+	<?php
+        include('page_modules/footer.php');
+        if(get_page::get_url()[0]=='admin') echo '<script src="/scripts/js/admin.js" type="text/javascript"></script>';
+        elseif(get_page::get_url()[0]=='about') echo '<script src="/scripts/js/about.js" type="text/javascript"></script>';
+        else echo '<script src="/scripts/js/home.js" type="text/javascript"></script>';
+    ?>
 </html>

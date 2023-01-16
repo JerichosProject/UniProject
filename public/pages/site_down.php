@@ -3,7 +3,10 @@
 <html lang="en">
     <head>
         <title>Site Down - Smart Shop</title>
-		<?php include('page_modules/header.php'); ?>
+		<?php
+            if(file_exists('page_modules/header.php')) include('page_modules/header.php');
+            else include('../page_modules/header.php');
+        ?>
     </head>
     <body class="bg-dark">
         <div class="d-flex align-items-center justify-content-center vh-100 text-white">
@@ -26,5 +29,8 @@
             </div>
         </div>
     </body>
-    <?php include('page_modules/footer.php'); ?>
+    <?php
+        if(file_exists('page_modules/footer.php')) include('page_modules/footer.php');    
+        else include('../page_modules/footer.php');    
+    ?>
 </html>

@@ -1,45 +1,15 @@
 <?php
     class session{
         public static function cullSession() {
-            $_SESSION['user']=null;
-            unset($_SESSION['user']);
+            $_SESSION['smartshop']=null;
+            unset($_SESSION['smartshop']);
         }
-        public static function updateSession($id=null) {
-            $row=home::doesResponseSessionExist($id);
-            if($row===false) return false;
-
-            if($row['completed']==1||$row['completed_time']!='') return false;
-            $_SESSION['user']['name']=$row['name'];
-            $_SESSION['user']['age']=$row['age'];
-            $_SESSION['user']['gender']=$row['gender'];
-            $_SESSION['user']['anonymous']=$row['anonymous'];
-            return true;
-        }
-        public static function createSession($post) {
-            if(!isset($post['name'])) return array('result'=>0,'message'=>'Name not set!');
-            if(!isset($post['age'])) return array('result'=>0,'message'=>'Age not set!');
-            if(!isset($post['gender'])) return array('result'=>0,'message'=>'Gender not set!');
-    
-            try {
-                $sqllog = "INSERT INTO `tbl_response`(`name`,`age`,`gender`,`anonymous`,`register_time`) VALUES (:name,:age,:gender,:anon,:reg)";
-                $qlog = $GLOBALS['database']->prepare($sqllog);
-                $qlog->execute(array(':name'=>$post['name'],
-                                    ':age'=>$post['age'],
-                                    ':gender'=>$post['gender'],
-                                    ':anon'=>(isset($post['anonymous'])&&($post['anonymous']==true?1:0)),
-                                    ':reg'=>time()
-                ));
-            }catch(PDOException $e){
-                return array('result'=>0,'message'=>'Error: '.$qlog->errorInfo());
-            }
-            $id=$GLOBALS['database']->lastInsertId();
-            $_SESSION['user']['name']=$post['name'];
-            $_SESSION['user']['age']=$post['gender'];
-            $_SESSION['user']['gender']=$post['gender'];
-            $_SESSION['user']['anonymous']=(isset($post['anonymous'])&&($post['anonymous']==true?1:0));
-            $_SESSION['user']['id']=$id;
-    
+        public static function createSession() {
+            $_SESSION['smartshop']['id']=rand(1000,9999).rand(1000,9999);
             return array('result'=>1,'message'=>'Created!');
+        }
+        public static function isLoggedIn() {
+            return (isset($_SESSION['smartshop']['id'])&&is_numeric($_SESSION['smartshop']['id'])?true:false);
         }
     }
 
@@ -58,6 +28,24 @@
         }
         public static function isJSON($json='') {
             return is_string($json) && is_array(json_decode($json, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+        }
+        public static function emoji_remove($text='') {
+            $text = iconv('UTF-8', 'ISO-8859-15//IGNORE', $text);
+            $text = preg_replace('/\s+/', ' ', $text);
+            return iconv('ISO-8859-15', 'UTF-8', $text);
+        }
+    }
+
+    class get_page {
+        public static function get_url() {
+            $get=$_GET;
+            $data=[];
+            if(isset($get['path'])) {
+                $get=explode('/',$get['path']);
+                $data=$get;
+            }
+            if(count($data)==0 || $data[0]=='') $data[0]='home';
+            return $data;
         }
     }
 ?>
