@@ -19,10 +19,10 @@
                                 <b>Page Not Found!</b> Have you got the correct link?
                             </p>
                             <a class="btn btn-sm btn-primary" href="/home">Home</a>
-                        </div>
-                        <div class="mt-3 alert alert-danger">
-                            <h2>Note!</h2>
-                            <h5>This <b>404</b> was returned from the web server! This is not connected to Smart Shop.</h5>
+                            <div class="mt-3 alert alert-danger">
+                                <h2>Note!</h2>
+                                <h5>This <b>404</b> was returned from the web server! This is not connected to Smart Shop.</h5>
+                            </div>
                         </div>
                     </div>
                 </body>
