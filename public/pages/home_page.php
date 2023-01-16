@@ -5,6 +5,12 @@
         die();
         // die(json_encode(array('result'=>0,'message'=>'Outside of the project network?')));
     }
+
+
+    echo '<p class="text-white">';
+        print_r($_GET);
+    echo '</p>';
+
 ?>
 <div class="row h-100" id="auth">
     <div class="d-flex align-items-center justify-content-center vh-100 text-white">

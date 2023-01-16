@@ -36,9 +36,6 @@
         // exit(json_encode(array('result'=>0,'message'=>'Error while connecting to MAIN Database: '.$e->getMessage().'<br/>')));
         die();
     }
-    echo '<p class="text-white">';
-        print_r($_GET);
-    echo '</p>';
 
     if(isset($_GET) && is_array($_GET) && count($_GET)>0) {
         foreach($_GET as $key=>$get) {
