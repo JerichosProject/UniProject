@@ -38,6 +38,7 @@
 
     class get_page {
         public static function get_url() {
+            global $_GET;
             $get=$_GET;
             $data=[];
             if(isset($get['path'])) {
