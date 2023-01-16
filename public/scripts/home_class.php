@@ -1,5 +1,7 @@
 <?php
 
+    if(!defined('UniProjects')) exit(json_encode(array('result'=>false,'message'=>'Outside of the network?')));
+
     class home{
         public static function randomThing($type=0) {
             if($type==0) return 'anon-'.rand(0,1000);

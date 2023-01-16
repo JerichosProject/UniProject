@@ -9,6 +9,8 @@
 
     $GLOBALS['creds']=null;
     $GLOBALS['errors']=[];
+    $GLOBALS['page']=array('slashes'=>array(),'query'=>array(),'info'=>array());
+
     if(file_exists('../access.ini')) $GLOBALS['creds']=parse_ini_file('../access.ini');
     else $GLOBALS['creds']=parse_ini_file('../../access.ini');
 
@@ -34,5 +36,28 @@
         // exit(json_encode(array('result'=>0,'message'=>'Error while connecting to MAIN Database: '.$e->getMessage().'<br/>')));
         die();
     }
+    echo '<p class="text-white">';
+        print_r($_GET);
+        print_r($_SERVER);
+    echo '</p>';
+
+    if(isset($_GET) && is_array($_GET) && count($_GET)>0) {
+        foreach($_GET as $key=>$get) {
+            if($key=='path') $GLOBALS['page']['slashes']=explode('/',$_GET['path']);
+            else $GLOBALS['page']['query'][$key]=$get;
+        }
+    }
+
+    if(!isset($GLOBALS['page']['slashes'])||$GLOBALS['page']['slashes']==''||!isset($GLOBALS['page']['slashes'][0])||$GLOBALS['page']['slashes'][0]=='') $GLOBALS['page']['slashes'][0]='home';
+
+    // $GLOBALS['page']['info']=page::get_page($GLOBALS['page']['slashes'][0]);
+    // if($GLOBALS['page']['info']['result']==0) $GLOBALS['page']['info']['data']=array(
+    //     'id'=>null,
+    //     'file'=>'404.png',
+    //     'name'=>'Page not found',
+    //     'url'=>'404',
+    //     'stats'=>0
+    // );
+    // $GLOBALS['page']['info']=$GLOBALS['page']['info']['data'];
 
 ?>

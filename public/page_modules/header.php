@@ -10,4 +10,5 @@
 <link href="/plugins/bootstrap5/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/plugins/sweetalerts2/css/sweetalert2.min.css">
+<link rel="stylesheet" href="/plugins/site_css.css">
 <link rel="stylesheet" href="/plugins/global.css">
