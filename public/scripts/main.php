@@ -38,7 +38,7 @@
     }
     echo '<p class="text-white">';
         print_r($_GET);
-        print_r($_SERVER);
+        phpinfo();
     echo '</p>';
 
     if(isset($_GET) && is_array($_GET) && count($_GET)>0) {
