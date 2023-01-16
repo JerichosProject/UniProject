@@ -7,14 +7,16 @@
     }
 ?>
 <div class="row h-100" id="auth">
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="bg-secondary rounded shadow p-4" attr="init">
-            <h3 class="text-dark">Checking authenticaiton...</h3>
+    <div class="d-flex align-items-center justify-content-center vh-100 text-white">
+        <div class="text-center home-div" attr="init">
+            <h1 class="display-1 fw-bold">Loading</h1>
         </div>
-        <div class="bg-success rounded shadow p-4" attr="signin" style="display:none;">
-            <h5 class="text-dark">Password:</h5>
-            <input class="form-control input-lg" value="" type="input" />
-            <button class="btn btn-primary btn-xl mt-1">Submit</button>
+        <div class="text-center home-div"attr="signin" style="display:none;">
+            <h1 class="display-1 fw-bold">Password Required</h1>
+            <p class="lead">
+                <input type="password" placeholder="Password" value="" autocomplete="new-password"  class="input-lg form-control" aria-label="Password" aria-describedby="inputGroup-sizing-lg" id="home-login-password">
+                <button class="btn btn-md btn-primary w-100 mt-2">Enter</button>
+            </p>
             <p>
                 Welcome to Smart Shop — this website is a University project.<br/>
                 The password is given out by the researcher. For more information, go to <a href="/about">/about</a>
