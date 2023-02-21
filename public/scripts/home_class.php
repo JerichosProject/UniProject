@@ -9,12 +9,10 @@
             elseif($type==2) return (rand(0,1)==0?'male':(rand(0,1)==0?'female':'none specified'));
             else return '';
         }
-        public static function get_question_number($id=null) {
-            if(!self::doesResponseSessionExist($id)) return 0;
-            $stmt=$GLOBALS['database']->prepare('SELECT * FROM `tbl_response_graph_data` WHERE `response_id`=? LIMIT 1');
-            $stmt->execute(array($id));
-            if($stmt->rowCount()==0) return 1;
-            return $stmt->rowCount();
+        public static function get_product_cache($barcode=null) {
+            $url='../../barcode_cache/'.$barcode.'.json';
+            if(!file_exists($url)) return "no";
+            return file_get_contents($url);
         }
     }
 
