@@ -2,7 +2,9 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="imagetoolbar" content="no"/>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="/plugins/morrisjs/morris.css" />
 <meta name="description" content="Graph study for University, contact me 1702201@student.uwtsd.ac.uk" />
 <meta name="author" content="Created by Jericho Uzzell" />
