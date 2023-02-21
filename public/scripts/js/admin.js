@@ -13,10 +13,15 @@ var debug=true;
             if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
             if(!isDataValid(data)) {error_errordatanotval(data);return;}
             let result=data.data;
-            if(result==0) {
+            if(result==0 || data.admin==false || data.admin=='false') {
                 //not logged in
-                $('#auth div[attr=init]').slideUp(500);
-                $('#auth div[attr=signin]').delay(800).slideDown(500);
+                if(data.admin==false || data.admin=='false') {
+                    $('#auth div[attr=init]').slideUp(500);
+                    $('#auth div[attr=notadmin]').delay(800).slideDown(500);
+                }else{
+                    $('#auth div[attr=init]').slideUp(500);
+                    $('#auth div[attr=signin]').delay(800).slideDown(500);
+                }
             }else{
                 //logged in, ask them if they want to continue!
                 $('#auth').fadeOut(500);
@@ -189,6 +194,37 @@ var debug=true;
         });
     }
 // end of get all categories ]
+
+// get product info [
+    $(document).on('click','.app-window[attr=product] input[type=button][attr=product_info]',function() {
+        $(this).attr('disabled','disabled');
+        let row=$('.app-window[attr=product]');
+        let barcode=row.find('input[attr=barcode]').eq(0).val();
+
+        if(barcode=='') {
+            $('.app-window[attr=product] input[type=button][attr=product_info]').removeAttr('disabled');
+            swal.fire('Error in fields!','Barcode number empty','info');
+            return;
+        }
+
+        $.post('/scripts/admin.php',{type:'create_product_info',post:{barcode:barcode}},function(data) {
+            if(debug) console.log(data);
+            if(!isJSON(data)) {error_cannotread();return;}
+            data=JSON.parse(data);
+            if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
+            if(!isDataValid(data)) {error_errordatanotval(data);return;}
+
+            if(row.find('input[attr=name]').eq(0).val()=='') {
+                row.find('input[attr=name]').eq(0).val(data.data.products.title);
+                if(data.data.products.images[0]!=undefined) row.find('input[attr=image]').eq(0).val(data.data.products.images[0]);
+            }
+
+            swal.fire('Created!','Created that product for you','success');
+        }).always(function(){
+            $('.app-window[attr=product] input[type=button][attr=product_info]').removeAttr('disabled');
+        });
+    });
+// end of get product info ]
 
 // window pane [
     function getWindowPane(caller) {

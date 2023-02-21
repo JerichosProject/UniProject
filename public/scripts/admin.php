@@ -3,6 +3,7 @@
     require('admin_class.php');
 	if(!defined('UniProjects')) exit(json_encode(array('result'=>0,'message'=>'Outside of the network?')));
     if(!session::isLoggedIn()) exit(json_encode(array('result'=>1,'message'=>'Not logged in!')));
+    if(!isset($_SESSION['smartshop']['admin'])||$_SESSION['smartshop']['admin']===false) exit(json_encode(array('result'=>1,'message'=>'You are not an administrator!')));
     if(!isset($_POST,$_POST['type'])||empty($_POST['type'])) exit(json_encode(array('result'=>0,'message'=>'Type not known!')));
 
     $types=['get_all_categories','get_all_aisle','create_category','create_aisle','create_product'];
@@ -158,6 +159,20 @@
             );
 		    // if($stmt_ins->rowCount()>0) return array('result'=>1,'message'=>'Done!','id'=>$dbh->lastInsertId());
             exit(json_encode(array('result'=>1,'message'=>'Created product!')));
+        break;
+        case 'create_product_info':
+            if(!isset($_POST['post']['barcode'])||!is_numeric($_POST['post']['barcode'])) exit(json_encode(array('result'=>0,'message'=>'Param post.barcode not set or is not number!')));
+
+            $barcode=preg_replace('/\s+/', ' ',substr($_POST['post']['barcode'],0,60));
+            if($barcode<0) exit(json_encode(array('result'=>0,'message'=>'Product (post.barcode) was out of bounds (less than zero or more than one hundred)!')));
+
+            $b=barcode::create_barcode($barcode);
+            // if(!$b['result']) exit(json_encode(array('result'=>0,'message'=>'Barcode API error, '.$b['message'].'!')));
+
+            $read=barcode::read_barcode_file($barcode);
+            if(!$read['result']) exit(json_encode(array('result'=>0,'message'=>'Error, message: '.$read['message'])));
+
+            exit(json_encode(array('result'=>1,'message'=>'Reading file!','data'=>$read['data'])));
         break;
         default:
             exit(json_encode(array('result'=>0,'message'=>'Unknown result!')));
