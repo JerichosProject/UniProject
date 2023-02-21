@@ -1,0 +1,50 @@
+{
+    "products": [
+        {
+            "barcode_number": "886736874135",
+            "barcode_formats": "UPC-A 886736874135, EAN-13 0886736874135",
+            "mpn": "510642-600",
+            "model": "",
+            "asin": "B005OBFDTS",
+            "title": "Nike Free Run Gym Red Platinum Silver Mens Running 510642-600 (9)",
+            "category": "Apparel & Accessories > Shoes",
+            "manufacturer": "Nike",
+            "brand": "Nike",
+            "contributors": [],
+            "age_group": "",
+            "ingredients": "",
+            "nutrition_facts": "",
+            "energy_efficiency_class": "",
+            "color": "gym red/reflect silver-pure platinum-volt",
+            "gender": "",
+            "material": "",
+            "pattern": "",
+            "format": "",
+            "multipack": "",
+            "size": "9 D(m) Us",
+            "length": "10.04",
+            "width": "3.94",
+            "height": "3.94",
+            "weight": "88",
+            "release_date": "",
+            "description": "Nike Free Run 3 Gym Red Barefoot Mens Running Shoes 510642-600 [US size 9].",
+            "features": [
+                "Model Number: 510642600",
+                "Gender: mens",
+                "Color: GYM RD/RFLCT SLVR -PR PLTNM-VLT",
+                "Made In: CHINA",
+                "Brand New With Original Box"
+            ],
+            "images": [
+                "https://images.barcodelookup.com/5219/52194594-1.jpg",
+                "https://images.barcodelookup.com/5219/52194594-2.jpg",
+                "https://images.barcodelookup.com/5219/52194594-3.jpg",
+                "https://images.barcodelookup.com/5219/52194594-4.jpg",
+                "https://images.barcodelookup.com/5219/52194594-5.jpg"
+            ],
+            "last_update": "2021-06-22 03:02:19",
+            "stores": [],
+            "reviews": []
+        }
+    ]
+}
