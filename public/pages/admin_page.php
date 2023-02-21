@@ -7,41 +7,54 @@
     }
 ?>
 <div class="row h-100" id="auth">
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="bg-secondary rounded shadow p-4" attr="init">
-            <h3 class="text-dark">Checking authenticaiton...</h3>
+    <div class="d-flex align-items-center justify-content-center vh-100 text-white">
+        <div class="text-center home-div" attr="init">
+            <h1 class="display-1 fw-bold">Loading</h1>
         </div>
-        <div class="bg-success rounded shadow p-4" attr="signin" style="display:none;">
-            <h5 class="text-dark">Password:</h5>
-            <input class="form-control input-lg" value="" type="input" />
-            <button class="btn btn-primary btn-xl mt-1">Submit</button>
+        <div class="text-center home-div"attr="signin" style="display:none;">
+            <h1 class="display-1 fw-bold">Password Required</h1>
+            <p class="lead">
+                <input type="password" placeholder="Password" value="" autocomplete="new-password"  class="input-lg form-control" aria-label="Password" aria-describedby="inputGroup-sizing-lg" id="home-login-password">
+                <button class="btn btn-md btn-primary w-100 mt-2">Enter</button>
+            </p>
+            <p>
+                Welcome to Smart Shop — this website is a University project.<br/>
+                The password is given out by the researcher. For more information, go to <a href="/about">/about</a>
+            </p>
+        </div>
+        <div class="text-center home-div"attr="notadmin" style="display:none;">
+            <h1 class="display-1 fw-bold">Error</h1>
+            <p class="lead">
+                You are not an administrator! You need to enter the right password to become one.<br/>
+                Logout and login using the correct password. <a href="/logout">Logout</a> or go <a href="/home">Home</a>
+            </p>
+            <p>
+                Welcome to Smart Shop — this website is a University project.<br/>
+                The password is given out by the researcher. For more information, go to <a href="/about">/about</a>
+            </p>
         </div>
     </div>
+
 </div>
 <div class="row h-100" id="app" style="display:none;">
     <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 p-3 bg-gray-dark text-white">
-        <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-white text-decoration-none">
+        <a href="/home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-white text-white text-decoration-none">
             <span class="fs-4">Smart Shop - Admin</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <button id="app-pane-create-product" class="nav-link">
+                <button id="app-pane-create-product" class="text-white nav-link">
                     <i class="fa-solid fa-folder-open"></i> Create Product
                 </button>
             </li>
             <li class="nav-item">
-                <button id="app-pane-sync" class="nav-link">
-                    <i class="fa-solid fa-folder-open"></i> Sunc Products with API
-                </button>
-            </li>
-            <li class="nav-item">
-                <button id="app-pane-create-aisle" class="nav-link">
+                <button id="app-pane-create-aisle" class="text-white nav-link">
                     <i class="fa-solid fa-grip-vertical"></i> Create Aisle
                 </button>
             </li>
             <li class="nav-item">
-                <button id="app-pane-create-category" class="nav-link">
+                <button id="app-pane-create-category" class="text-white nav-link">
                     <i class="fa-solid fa-box-archive"></i> Create Category
                 </button>
             </li>
@@ -88,8 +101,8 @@
                     <input type="number" class="form-control input-md" attr="shelf" />
                 </div>
                 <div class="col-6 mt-2">
-                    <h4>Submit</h4>
-                    <input type="button" class="btn btn-md btn-success" attr="submit" value="Create" />
+                    <input type="button" class="btn btn-md btn-success" attr="submit" value="Create" /> 
+                    <input type="button" class="btn btn-md btn-info" attr="product_info" value="Product info" />
                 </div>
             </div>
         </div>

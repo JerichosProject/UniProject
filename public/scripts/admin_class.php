@@ -2,27 +2,6 @@
 
     if(!defined('UniProjects')) exit(json_encode(array('result'=>false,'message'=>'Outside of the network?')));
 
-    class shop{
-        public static function does_category_exist($catid=null) {
-            $stmt=$GLOBALS['database']->prepare('SELECT * FROM `tbl_categories` WHERE `id`=:id LIMIT 1');
-            $stmt->execute(array('id'=>$catid));
-            if($stmt->rowCount()==0) return array('result'=>false,'message'=>'Category does not exist!');
-            return array('result'=>true,'message'=>'Category exists!');
-        }
-        public static function does_aisle_exist($aisleid=null) {
-            $stmt=$GLOBALS['database']->prepare('SELECT * FROM `tbl_aisles` WHERE `id`=:id LIMIT 1');
-            $stmt->execute(array('id'=>$aisleid));
-            if($stmt->rowCount()==0) return array('result'=>false,'message'=>'Aisle does not exist!');
-            return array('result'=>true,'message'=>'Aisle exists!');
-        }
-        public static function does_barcode_exist($barcode=null) {
-            $stmt=$GLOBALS['database']->prepare('SELECT * FROM `tbl_products` WHERE `barcode`=:barcode LIMIT 1');
-            $stmt->execute(array('barcode'=>$barcode));
-            if($stmt->rowCount()>0) return array('result'=>true,'message'=>'Barcode exists!');
-            return array('result'=>false,'message'=>'Barcode does not exist!');
-        }
-    }
-
     class barcode {
         public static function create_barcode($barcode=null) {
             if($barcode==null) return array('result'=>false,'message'=>'Barcode was empty!');
@@ -63,6 +42,21 @@
 
             if(isset($responses['products'][0]['title'])) $name=$responses['products'][0]['title'];
             return array('result'=>true,'message'=>'Create barcode entry!','data'=>array('name'=>$name));
+        }
+        public static function read_barcode_file($barcode=null) {
+            if($barcode==null) return array('result'=>false,'message'=>'Barcode was empty!');
+
+            $file_url='';
+            if(file_exists('../../../barcode_cache/info.txt')) $file_url='../../../barcode_cache';
+            elseif(file_exists('../../barcode_cache/info.txt')) $file_url='../../barcode_cache';
+            elseif(file_exists('../barcode_cache/info.txt')) $file_url='../barcode_cache';
+            else return array('result'=>false,'message'=>'Could not get in info, could not risk creating in an unknown directory.');
+
+            if(!file_exists($file_url.'/'.$barcode.'.json')) return array('result'=>false,'message'=>'Barcode file was not found, did you actually add it?');
+
+            $file_handle=file_get_contents($file_url.'/'.$barcode.'.json');
+            $file_handle=json_decode($file_handle,true);
+            return array('result'=>true,'message'=>'Success','data'=>$file_handle);
         }
         /*
             {
