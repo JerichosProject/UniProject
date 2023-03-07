@@ -230,16 +230,31 @@ var interval=null;
 // end of show featured ]
 
 // search for product [
+    var searchProductTypeTimer;
 
-    $(document).on('input','#navbarSupportedContent input[type=search]',function() {
-        let search=$(this).val();
+    $('#navbarSupportedContent input[type=search]').on('keyup',function() {
+        //https://stackoverflow.com/questions/4220126/run-javascript-function-when-user-finishes-typing-instead-of-on-key-up thanks
+        clearTimeout(searchProductTypeTimer);
+        searchProductTypeTimer=setTimeout(searchInputNavBar,1000);
+    });
+    $('#navbarSupportedContent input[type=search]').on('keydown',function() {
+        clearTimeout(searchProductTypeTimer);
+    });
+    $(document).on('blur','#navbarSupportedContent input[type=search]',function() {
+        $('#navbarSupportedContentSearchDropDown').hide();
+    });
+    $(document).on('focus','#navbarSupportedContent input[type=search]',function() {
+        let search=$('#navbarSupportedContent input[type=search]').val();
+        if(search.length>0) $('#navbarSupportedContentSearchDropDown').show();
+    });
+
+    function searchInputNavBar() {
+        let search=$('#navbarSupportedContent input[type=search]').val();
         $('#navbarSupportedContentSearchDropDown').hide();
         if(search.length<3) return;
 
         getProductsByNameAndTags(search,'navbarSupportedContentSearchDropDown');
-
-        // $('#navbarSupportedContentSearchDropDown').show();
-    });
+    }
     
     function getProductsByNameAndTags(search,appendto) {
         $.post('/scripts/home.php',{type:'get_products_by_name_and_tags',post:{search:search}},function(data) {
@@ -252,6 +267,7 @@ var interval=null;
             let out='';
             
             $('#navbarSupportedContentSearchDropDown').show();
+            $('#navbarSupportedContent input[type=search]').focus();
 
             if(result.noresults!=undefined) {
                 out+='<a href="javascript:;" class="d-flex align-items-center p-3 rounded bg-state-light bg-state-opacity-50 mb-1">';
@@ -337,6 +353,11 @@ var interval=null;
             $('.app-nav-update').removeAttr('disabled');
         });
     }
+    $(document).on('click','.app-window[attr=product] a.view-on-map',function(e) {
+        let href=$(this).attr('href');
+        window.open(href, 'popup', 'height=500,width=400,toolbar=no')
+        e.preventDefault();
+    });
 // end of product info ]
 
 // shopping cart [

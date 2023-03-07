@@ -91,16 +91,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <button class="nav-link app-nav-panel" attr="home"><i class="fa-solid fa-house"></i> Home</button>
+                        <button class="nav-link app-nav-panel border-0 bg-transparent" attr="home"><i class="fa-solid fa-house"></i> Home</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link app-nav-panel" attr="departments"><i class="fa-solid fa-cart-shopping"></i> By Department</button>
+                        <button class="nav-link app-nav-panel border-0 bg-transparent" attr="departments"><i class="fa-solid fa-cart-shopping"></i> By Department</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link app-nav-panel" attr="shoplist"><i class="fa-solid fa-bag-shopping"></i> Shopping list</button>
+                        <button class="nav-link app-nav-panel border-0 bg-transparent" attr="shoplist"><i class="fa-solid fa-bag-shopping"></i> Shopping list</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfkdo0Isgsd98mLytHC63fgfNrUvIqLTpfpVSUFJifwVIYI_A/viewform"><i class="fa-solid fa-comments"></i> Feedback</a>
+                        <a class="nav-link border-0 bg-transparent" href="https://docs.google.com/forms/d/e/1FAIpQLSfkdo0Isgsd98mLytHC63fgfNrUvIqLTpfpVSUFJifwVIYI_A/viewform"><i class="fa-solid fa-comments"></i> Feedback</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
