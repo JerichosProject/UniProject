@@ -83,7 +83,7 @@
 </div> -->
 <div class="row h-100" id="app" style="display:none;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
+        <div class="container-fluid m-0 p-0">
             <a class="navbar-brand" href="#">Smart Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

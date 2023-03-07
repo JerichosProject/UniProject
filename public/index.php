@@ -38,11 +38,13 @@
 
     </head>
     <body class="bg-dark">
-        <?php
-            if(get_page::get_url()[0]=='admin') require_once('pages/admin_page.php');
-            elseif(get_page::get_url()[0]=='about') require_once('pages/about_page.php');
-            else require_once('pages/home_page.php');
-        ?>
+        <div class="container-fluid">
+            <?php
+                if(get_page::get_url()[0]=='admin') require_once('pages/admin_page.php');
+                elseif(get_page::get_url()[0]=='about') require_once('pages/about_page.php');
+                else require_once('pages/home_page.php');
+            ?>
+        </div>
     </body>
     
 	<?php
@@ -52,54 +54,3 @@
         else echo '<script src="/scripts/js/home.js" type="text/javascript"></script>';
     ?>
 </html>
-
-
-<script type="text/javascript">
-    var mapExtent = [0.00000000, -1718.00000000, 2788.00000000, 0.00000000];
-    var mapMinZoom = 1;
-    var mapMaxZoom = 3;
-    var mapMaxResolution = 1.00000000;
-    var mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution;
-    // var tileExtent = [-1734.40009,2780.79993,-27.20013,19.19958];
-    // var tileExtent = [-1718.00000000, -1718.00000000, 2788.00000000, 0.00000000];
-    var tileExtent = [0.00000000, -1718.00000000, 2788.00000000, 0.00000000];
-    // var tileExtent = [-1747.99991,-26.39996,-143.6,1889.2];
-    var crs = L.CRS.Simple;
-    // crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3]);
-    crs.scale = function(zoom) {
-        return Math.pow(2, zoom) / mapMinResolution;
-    };
-    crs.zoom = function(scale) {
-        return Math.log(scale * mapMinResolution) / Math.LN2;
-    };
-    var layer;
-    var map = new L.Map('map_shop_interactive', {
-        maxZoom: mapMaxZoom,
-        minZoom: mapMinZoom,
-        crs: crs,
-        center: [-977.59,1165.5997], // starting 
-    });
-    
-    layer = L.tileLayer("/{z}/{x}/{y}.jpg", {
-        minZoom: mapMinZoom,
-        maxZoom: mapMaxZoom,
-        tileSize: L.point(512, 512),
-        attribution: '<a href="https://www.maptiler.com/engine/">MapTiler</a>',
-        noWrap: true,
-        tms: false,
-    }).addTo(map);  
-    // console.log(layer);
-    // map.fitBounds([
-    //     crs.unproject(L.point(mapExtent[2], mapExtent[3])),
-    //     crs.unproject(L.point(mapExtent[0], mapExtent[1]))
-    // ]);
-
-    map.fitBounds([
-        [-1747.99991,-26.39996], // southwestern corner of the bounds
-        [-143.6,1889.2] // northeastern corner of the bounds
-    ]);
-
-
-    L.control.mousePosition().addTo(map)
-
-</script>
