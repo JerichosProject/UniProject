@@ -78,6 +78,53 @@
             }
             exit(json_encode(array('result'=>1,'message'=>'Got products!',$_SESSION['smartshop']['id'],'data'=>$data)));
         break;
+        case 'get_featured':
+            if(!session::isLoggedIn()) exit(json_encode(array('result'=>1,'message'=>'Not logged in!')));
+            $stmt_products=$dbh->prepare('SELECT * FROM `tbl_products` ORDER BY RAND() LIMIT 4');
+            $stmt_products->execute();
+            if($stmt_products->rowCount()==0) exit(json_encode(array('result'=>0,'message'=>'No products found!')));
+
+            $stmt_aisle=$dbh->prepare('SELECT * FROM `tbl_aisles`');
+            $stmt_aisle->execute();
+            if($stmt_aisle->rowCount()==0) exit(json_encode(array('result'=>0,'message'=>'No aisles found!')));
+
+            $stmt_cat=$dbh->prepare('SELECT * FROM `tbl_categories`');
+            $stmt_cat->execute();
+            if($stmt_cat->rowCount()==0) exit(json_encode(array('result'=>0,'message'=>'No departments found!')));
+
+            $rows_cat=$stmt_cat->fetchAll();
+            $rows_aisle=$stmt_aisle->fetchAll();
+            $rows_products=$stmt_products->fetchAll();
+            $data=[];
+            foreach($rows_products as $products) {
+                $data['products'][]=array(
+                    'id'=>$products['id'],
+                    'barcode'=>$products['barcode'],
+                    'name'=>general::emoji_remove($products['name']),
+                    'url'=>general::emoji_remove($products['urlname']),
+                    'image'=>general::emoji_remove($products['image']),
+                    'price'=>$products['price'],
+                    'stock'=>$products['stock'],
+                    'shelf'=>$products['shelf'],
+                    'aisle'=>$products['aisleid'],
+                    'department'=>$products['catid'],
+                    'in_cart'=>(shop::is_product_in_basket($products['barcode'])?1:0)
+                );
+            }
+            foreach($rows_cat as $cat) {
+                $data['dept'][$cat['id']]=array(
+                    'name'=>general::emoji_remove($cat['name']),
+                    'urlname'=>general::emoji_remove($cat['urlname']),
+                );
+            }
+            foreach($rows_aisle as $aisle) {
+                $data['aisles'][$aisle['id']]=array(
+                    'name'=>general::emoji_remove($aisle['name']),
+                    'number'=>$aisle['number'],
+                );
+            }
+            exit(json_encode(array('result'=>1,'message'=>'Got products!',$_SESSION['smartshop']['id'],'data'=>$data)));
+        break;
         case 'get_departments':
             if(!session::isLoggedIn()) exit(json_encode(array('result'=>1,'message'=>'Not logged in!')));
 
@@ -248,6 +295,60 @@
                 );
             }
             exit(json_encode(array('result'=>1,'message'=>'Shopping cart!','data'=>$carts)));
+        break;
+        case 'get_products_by_name_and_tags':
+            if(!session::isLoggedIn()) exit(json_encode(array('result'=>1,'message'=>'Not logged in!')));
+            $search='';
+            if(!isset($_POST['post']['search'])||empty($_POST['post']['search'])) exit(json_encode(array('result'=>1,'message'=>'Param post.search not set or is empty!')));
+
+            if(strlen($_POST['post']['search'])<3) exit(json_encode(array('result'=>1,'message'=>'Param post.search is less than three words!')));
+
+            $search=$_POST['post']['search'];
+
+            $stmt_products=$dbh->prepare('SELECT * FROM `tbl_products` WHERE `name` RLIKE :search OR `tags` RLIKE :search LIMIT 30');
+            $stmt_products->execute(array('search'=>$search));
+            if($stmt_products->rowCount()==0) exit(json_encode(array('result'=>1,'message'=>'No products found!','data'=>array('noresults'=>true))));
+
+            $stmt_aisle=$dbh->prepare('SELECT * FROM `tbl_aisles`');
+            $stmt_aisle->execute();
+            if($stmt_aisle->rowCount()==0) exit(json_encode(array('result'=>0,'message'=>'No aisles found!')));
+
+            $stmt_cat=$dbh->prepare('SELECT * FROM `tbl_categories`');
+            $stmt_cat->execute();
+            if($stmt_cat->rowCount()==0) exit(json_encode(array('result'=>0,'message'=>'No departments found!')));
+
+            $rows_cat=$stmt_cat->fetchAll();
+            $rows_aisle=$stmt_aisle->fetchAll();
+            $rows_products=$stmt_products->fetchAll();
+            $data=[];
+            foreach($rows_products as $products) {
+                $data['products'][]=array(
+                    'id'=>$products['id'],
+                    'barcode'=>$products['barcode'],
+                    'name'=>general::emoji_remove($products['name']),
+                    'url'=>general::emoji_remove($products['urlname']),
+                    'image'=>general::emoji_remove($products['image']),
+                    'price'=>$products['price'],
+                    'stock'=>$products['stock'],
+                    'shelf'=>$products['shelf'],
+                    'aisle'=>$products['aisleid'],
+                    'department'=>$products['catid'],
+                    'in_cart'=>(shop::is_product_in_basket($products['barcode'])?1:0)
+                );
+            }
+            foreach($rows_cat as $cat) {
+                $data['dept'][$cat['id']]=array(
+                    'name'=>general::emoji_remove($cat['name']),
+                    'urlname'=>general::emoji_remove($cat['urlname']),
+                );
+            }
+            foreach($rows_aisle as $aisle) {
+                $data['aisles'][$aisle['id']]=array(
+                    'name'=>general::emoji_remove($aisle['name']),
+                    'number'=>$aisle['number'],
+                );
+            }
+            exit(json_encode(array('result'=>1,'message'=>'Got products!','data'=>$data)));
         break;
         default:
             exit(json_encode(array('result'=>0,'message'=>'Unknown result!')));

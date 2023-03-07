@@ -1,7 +1,7 @@
 <?php
     class session{
         public static function cullSession() {
-            $stmt_shopping_cart_u=$dbh->prepare('DELETE FROM `tbl_shopping_cart` WHERE `userid`=:userid');
+            $stmt_shopping_cart_u=$GLOBALS['dbh']->prepare('DELETE FROM `tbl_shopping_cart` WHERE `userid`=:userid');
             $stmt_shopping_cart_u->execute(array('userid'=>$_SESSION['smartshop']['id']));
 
             $_SESSION['smartshop']=null;

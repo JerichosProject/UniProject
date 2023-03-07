@@ -102,12 +102,4 @@
 
     L.control.mousePosition().addTo(map)
 
-    let long=0.00000000;
-    let lat=-1718.00000000;
-    var marker = L.marker([long,lat]).addTo(map);
-
-    long=2788.00000000;
-    lat=0.00000000;
-    marker = L.marker([long,lat]).addTo(map);
-
 </script>
