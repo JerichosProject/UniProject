@@ -12,6 +12,7 @@
     //echo '<p class="text-danger">'.getcwd().'</p>';
     echo '<div class="alert alert-danger">';
         print_r(get_page::get_url());
+        print_r($_GET);
     echo '</div>';
 ?>
 <!DOCTYPE php>
