@@ -8,7 +8,6 @@
                     <?php
                         if(file_exists('page_modules/header.php')) include('page_modules/header.php');
                         else include('../page_modules/header.php');
-                        echo '<p class="text-danger">'.getcwd().'</p>';
                     ?>
                 </head>
                 <body class="bg-dark">

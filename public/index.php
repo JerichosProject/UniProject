@@ -43,7 +43,8 @@
             <?php
                 if(get_page::get_url()[0]=='admin') require_once('pages/admin_page.php');
                 elseif(get_page::get_url()[0]=='about') require_once('pages/about_page.php');
-                else require_once('pages/home_page.php');
+                elseif(get_page::get_url()[0]=='home') require_once('pages/home_page.php');
+                else require_once('pages/not_found.php');
             ?>
         </div>
     </body>
