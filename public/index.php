@@ -10,6 +10,9 @@
     //     print_r(get_page::get_url($_GET));
     // echo '</p>';
     //echo '<p class="text-danger">'.getcwd().'</p>';
+    echo '<div class="alert alert-danger">';
+        print_r(get_page::get_url());
+    echo '</div>';
 ?>
 <!DOCTYPE php>
 <html>
