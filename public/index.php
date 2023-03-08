@@ -9,6 +9,7 @@
     //     echo '<br/>';
     //     print_r(get_page::get_url($_GET));
     // echo '</p>';
+    echo '<p class="text-danger">'.getcwd().'</p>';
 ?>
 <!DOCTYPE php>
 <html>
