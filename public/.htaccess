@@ -1,6 +1,6 @@
 DirectoryIndex disabled
 Options -Indexes
-DirectoryIndex index.php
+DirectoryIndex /index.php index.php
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
