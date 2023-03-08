@@ -1,5 +1,7 @@
 DirectoryIndex /index.php index.php
 
+AllowOverride All
+
 Options +FollowSymLinks -MultiViews
 Options +Indexes
 
