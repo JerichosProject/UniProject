@@ -1,9 +1,10 @@
-DirectoryIndex /index.php index.php
+DirectoryIndex index.php
 
-AllowOverride All
+#AllowOverride All
 
-Options +FollowSymLinks -MultiViews
 Options +Indexes
+Options +FollowSymLinks
+Options -MultiViews
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
