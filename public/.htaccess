@@ -1,8 +1,12 @@
-DirectoryIndex disabled
-Options -Indexes
 DirectoryIndex /index.php index.php
+
+Options +FollowSymLinks
+Options +Indexes
+
 RewriteEngine on
-RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
+RewriteBase /
+
+
+RewriteRule ^([^/\.]+)/?$ index.php?path=$1 [NC,L,QSA]
