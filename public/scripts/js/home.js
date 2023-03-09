@@ -1,4 +1,4 @@
-var debug=true;
+var debug=false;
 var interval=null;
 //signing in [
     function initaliseHome() {
@@ -123,7 +123,7 @@ var interval=null;
     $(document).on('click','.app-nav-dept-update',function() {
         $('.app-nav-update').attr('disabled','disabled');
         let url=$(this).attr('url');
-        updateURL('department/'+url)
+        updateURL('departments/'+url)
         getDepartment(url);
     });
 // end of view department ]
@@ -498,6 +498,12 @@ var interval=null;
             }
         }
     }
+
+    
+    window.addEventListener('popstate', function(event) {
+        getWindowPane();
+    }, false);
+
 // end of window pane ]
 
 $(document).ready(function(){
