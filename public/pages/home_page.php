@@ -84,7 +84,7 @@
 <div class="row" id="app" style="display:none;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid m-0 p-0">
-            <a class="navbar-brand" href="#">Smart Shop</a>
+            <a class="navbar-brand" href="/home">Smart Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -111,12 +111,13 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <div id="navbarSupportedContentSearchDropDown" style="display:none;" class="p-2 bg-dark border-secondary m-4 mt-0 rounded"></div>
+                <div id="navbarSupportedContentSearchDropDownBackDrop" style="display:none;"></div>
             </div>
         </div>
     </nav>
 
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="container px-4 px-lg-5 mt-5 app-window text-blue" style="display:none;" attr="home"></div>
+        <div class="container px-4 px-lg-5 mt-5 app-window text-dark" style="display:none;" attr="home"></div>
         <div class="container px-4 px-lg-5 mt-5 app-window text-white" style="display:none;" attr="product">
             <div class="row">
                 <div class="col-12 col-sm-12 col-s-12 col-lg-12 col-xl-12">

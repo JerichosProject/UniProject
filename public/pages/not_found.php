@@ -1,5 +1,8 @@
 <?php
     if(!defined('UniProjects')) {
+        include_once('filenotfound.php');
+        die();
+    }
 ?>
 <div class="d-flex align-items-center justify-content-center vh-100 text-white">
     <div class="text-center">

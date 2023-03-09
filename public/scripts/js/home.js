@@ -240,12 +240,18 @@ var interval=null;
     $('#navbarSupportedContent input[type=search]').on('keydown',function() {
         clearTimeout(searchProductTypeTimer);
     });
-    $(document).on('blur','#navbarSupportedContent input[type=search]',function() {
-        $('#navbarSupportedContentSearchDropDown').hide();
-    });
+    /* $(document).on('blur','#navbarSupportedContent input[type=search]',function() {
+        $('#navbarSupportedContentSearchDropDown,#navbarSupportedContentSearchDropDownBackDrop').hide();
+    }); */
     $(document).on('focus','#navbarSupportedContent input[type=search]',function() {
         let search=$('#navbarSupportedContent input[type=search]').val();
-        if(search.length>0) $('#navbarSupportedContentSearchDropDown').show();
+        if(search.length>0) {
+            $('#navbarSupportedContentSearchDropDown,#navbarSupportedContentSearchDropDownBackDrop').show();
+        }
+    });
+
+    $(document).on('click','#navbarSupportedContentSearchDropDownBackDrop',function() {
+        $('#navbarSupportedContentSearchDropDownBackDrop,#navbarSupportedContentSearchDropDown').hide();
     });
 
     function searchInputNavBar() {
@@ -266,21 +272,19 @@ var interval=null;
             let result=data.data;
             let out='';
             
-            $('#navbarSupportedContentSearchDropDown').show();
+            $('#navbarSupportedContentSearchDropDown,#navbarSupportedContentSearchDropDownBackDrop').show();
             $('#navbarSupportedContent input[type=search]').focus();
 
             if(result.noresults!=undefined) {
-                out+='<a href="javascript:;" class="d-flex align-items-center p-3 rounded bg-state-light bg-state-opacity-50 mb-1">';
-                    out+='<div class="symbol symbol-30px me-4">';
-                    out+='<span class="symbol-label bg-light-primary">';
-                            out+='<span class="svg-icon svg-icon-2 svg-icon-primary">Icon</span>';
-                            out+='</span>';
-                            out+='</div>';
-                    out+='<div class="fw-bold">';
-                        out+='<span class="fs-6 text-gray-800">Si-Fi Project by AU Themes</span>';
-                        out+='<span class="fs-7 text-muted">#45670</span>';
+                out+='<div class="card mt-1 ">';
+                    out+='<div class="card-header d-flex justify-content-between">';
+                        out+='<div class="fw-bold">';
+                            out+='<span class="fs-6 text-dark">No results found!</span><br/>';
+                            out+='<span class="fs-7 text-muted">Please try again.</span>';
+                        out+='</div>';
+
                     out+='</div>';
-                out+='</a>';
+                out+='</div>';
                 $('#'+appendto).html(out);
                 return;
             }
@@ -288,7 +292,7 @@ var interval=null;
                 out+='<div class="card mt-1 ">';
                     out+='<div class="card-header d-flex justify-content-between">';
                         out+='<div class="fw-bold">';
-                            out+='<span class="fs-6 text-gray-800">'+product.name+'</span><br/>';
+                            out+='<span class="fs-6 text-dark">'+product.name+'</span><br/>';
                             out+='<span class="fs-7 text-muted">'+result.dept[product.department].name+' / '+result.aisles[product.aisle].name+'<br/>A: '+result.aisles[product.aisle].number+' S: '+product.shelf+' - £'+product.price+'<br/><button class="btn btn-sm btn-outline-dark mt-auto app-nav-update" attr="item" barcode="'+product.barcode+'" uid="'+product.id+'" url="'+product.url+'">View</button> <button class="btn btn-sm '+(product.in_cart=='1'?'btn-danger':'btn-outline-warning')+' mt-auto app-nav-shop-list" attr="'+(product.in_cart=='1'?'delete':'add')+'" barcode="'+product.barcode+'" uid="'+product.id+'">'+(product.in_cart=='1'?'Delete':'Add to list')+'</button></span>';
                         out+='</div>';
 

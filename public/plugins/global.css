@@ -5,7 +5,7 @@
 
 #navbarSupportedContentSearchDropDown {
     position: absolute;
-    top: 16vh;
+    top: 3em;
     right: 0;
     min-width: 15em;
     overflow-x: auto;
@@ -14,4 +14,17 @@
     overflow-y: auto;
     word-wrap: break-word;
     z-index: 999;
+}
+
+#navbarSupportedContentSearchDropDownBackDrop {
+    position: absolute;
+    top: 0em;
+    right: 0em;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    border: none;
+    z-index: 998;
+    background-color:#1c1c1cc2!important;
 }

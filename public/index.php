@@ -10,10 +10,10 @@
     //     print_r(get_page::get_url($_GET));
     // echo '</p>';
     //echo '<p class="text-danger">'.getcwd().'</p>';
-    echo '<div class="alert alert-danger">';
-        print_r(get_page::get_url());
-        print_r($_GET);
-    echo '</div>';
+    // echo '<div class="alert alert-danger">';
+    //     print_r(get_page::get_url());
+    //     print_r($_GET);
+    // echo '</div>';
 ?>
 <!DOCTYPE php>
 <html>
@@ -42,12 +42,12 @@
         </style>
 
     </head>
-    <body class="bg-dark">
+    <body class="bg-dark text-white">
         <div class="container-fluid">
             <?php
                 if(get_page::get_url()[0]=='admin') require_once('pages/admin_page.php');
                 elseif(get_page::get_url()[0]=='about') require_once('pages/about_page.php');
-                elseif(get_page::get_url()[0]=='home') require_once('pages/home_page.php');
+                elseif(in_array(get_page::get_url()[0],array('home','product','departments','list'))) require_once('pages/home_page.php');
                 else require_once('pages/not_found.php');
             ?>
         </div>
