@@ -1,4 +1,15 @@
-RewriteEngine On
+DirectoryIndex index.php
+
+#AllowOverride All
+
+Options +Indexes
+Options +FollowSymLinks
+Options -MultiViews
+
+RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteBase /
+
+
+RewriteRule ^(.*)$ index.php?path=$1 [NC,L,QSA]
