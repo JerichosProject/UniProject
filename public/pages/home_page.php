@@ -26,7 +26,7 @@
                         <button href="/home" class="mt-2 mb-2 btn btn-sm btn-primary" id="home-div-welcome-login">Login</button>
                     </div>
                     <div class="pl-4 pl-4 login-home-item">
-                        <h1 class="display-1 fw-bold">Welcome!</h1>
+                        <h1 class="display-5 fw-bold">Welcome!</h1>
                         <p class="lead">
                             This website is being ran as part of a University Dissertation. Its intention is to assess whether customers require more information whilst in-store shopping.<br/>
                             The research is looking into current technologies being used, current ways of shopping in-store, what is the difference between online shopping and what do shops do to encourage in-store shopping.
@@ -39,13 +39,13 @@
                         </p>
                     </div>
                     <div class="pl-4 pl-4 login-home-item" style="display:none;">
-                        <h1 class="display-1 fw-bold">What is being done differently in this research?</h1>
+                        <h1 class="display-5 fw-bold">What is being done differently in this research?</h1>
                         <p class="lead">
                             We are gathering several products and storing them on this site, we are assiging alises, departments, stock levels, where the product is on the shelf, a map location, where the product is, an online shopping list that will mark items off once scanned in-store and lastly, best directions to navigate the shop.
                         </p>
                     </div>
                     <div class="pl-4 pl-4 login-home-item" style="display:none;">
-                        <h1 class="display-1 fw-bold">why is a Website needed?</h1>
+                        <h1 class="display-5 fw-bold">Why is a Website needed?</h1>
                         <p class="lead">
                             To apply methods and run a test group, assessing if the information provided would be useful if the products and location were correct for a real life store. 
                         </p>
@@ -103,8 +103,17 @@
                         <a class="nav-link border-0 bg-transparent" href="https://docs.google.com/forms/d/e/1FAIpQLSfkdo0Isgsd98mLytHC63fgfNrUvIqLTpfpVSUFJifwVIYI_A/viewform"><i class="fa-solid fa-comments"></i> Feedback</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
+                        <a class="nav-link border-0 bg-transparent" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
+                    <?php
+                        if(session::isAdmin()) {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
+                        </li>
+                        <?php
+                        }
+                    ?>
                 </ul>
                 <form class="d-flex">
                     <!-- <label class="label text-primary">Search</label> -->
