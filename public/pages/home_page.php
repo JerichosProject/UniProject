@@ -107,8 +107,9 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <!-- <label class="label text-primary">Search</label> -->
+                    <input class="form-control me-2" type="search" placeholder="Start Typing" aria-label="Search">
+                    <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                 </form>
                 <div id="navbarSupportedContentSearchDropDown" style="display:none;" class="p-2 bg-dark border-secondary m-4 mt-0 rounded"></div>
                 <div id="navbarSupportedContentSearchDropDownBackDrop" style="display:none;"></div>
