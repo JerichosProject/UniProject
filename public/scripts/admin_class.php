@@ -7,6 +7,7 @@
             if($barcode==null) return array('result'=>false,'message'=>'Barcode was empty!');
             if(shop::does_barcode_exist($barcode)===true) return array('result'=>false,'message'=>'Barcode already existed in dB, not wasting API request!');
 
+            return array('result'=>false,$barcode,$GLOBALS['creds']['barcode_key']);
             $url='https://api.barcodelookup.com/v3/products?barcode='.$barcode.'&formatted=y&key='.$GLOBALS['creds']['barcode_key'];
             $ch = curl_init();
             curl_setopt_array($ch, array(

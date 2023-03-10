@@ -177,7 +177,7 @@
             $read=barcode::read_barcode_file($barcode);
             if(!$read['result']) {
                 $b=barcode::create_barcode($barcode);
-                exit('tes');
+                exit('tes '.json_encode($b));
                 if(!$b['result']) exit(json_encode(array('result'=>0,'message'=>'Barcode API error, '.$b['message'].'!')));
             }
             
