@@ -137,6 +137,11 @@
                     <button class="btn btn-sm btn-outline-warning mt-auto app-nav-shop-list shopping-cart" attr="add" barcode="" uid="">Add to shopping cart</button> 
                     <a class="btn btn-sm btn-outline-primary mt-auto view-on-map" href="/maptiler/leaflet.html?barcode=">View on map</a>
                 </div>
+                <div class="col-12 restrictions_apply mt-1" style="display:none;">
+                    <div class="alert alert-danger">
+                        <p><b>Verification notice!</b> Verification may be required for this product - restrictions may apply.</p>
+                    </div>
+                </div>
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-6">
                     <h4 class="name"></h4>
                     <p class="store_info"></p>

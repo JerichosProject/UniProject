@@ -165,6 +165,7 @@
                 'shelf'=>$row_product['shelf'],
                 'aisle'=>$row_product['aisleid'],
                 'department'=>$row_product['catid'],
+                'verification'=>$row_product['verification'],
                 'in_cart'=>(shop::is_product_in_basket($row_product['barcode'])?1:0),
                 'json'=>home::get_product_cache($row_product['barcode'])
             );

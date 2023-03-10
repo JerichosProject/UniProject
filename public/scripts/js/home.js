@@ -402,6 +402,9 @@ var interval=null;
             // console.table(result.product.json);
             $('.app-window[attr=product] img.image').attr('src','');
 
+            $('.app-window div.restrictions_apply').hide();
+            if(result.product.verification==1) $('.app-window div.restrictions_apply').show();
+
             if(result.product.json!='no') {
                 let json=JSON.parse(result.product.json);
                 json=json.products[0];
