@@ -35,6 +35,7 @@
             else return array('result'=>false,'message'=>'Could not create file, could not risk creating in an unknown directory.');
 
             // try{
+                echo $file_url.'/'.$barcode.'.json\n\n\n';
                 $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
                 fwrite($file_handle, $responses);
                 fclose($file_handle);
