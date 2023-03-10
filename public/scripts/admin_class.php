@@ -36,9 +36,9 @@
 
             // try{
                 echo $file_url.'/'.$barcode.'.json\n\n\n';
-                $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
-                fwrite($file_handle, $responses);
-                fclose($file_handle);
+                // $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
+                // fwrite($file_handle, $responses);
+                // fclose($file_handle);
             // }catch(Exception $e){
             //     return array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_01');
             // }
