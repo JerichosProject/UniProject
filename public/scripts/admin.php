@@ -128,9 +128,10 @@
             if($stock<0||$stock>7000) exit(json_encode(array('result'=>0,'message'=>'Product (post.stock) was out of bounds (less than zero or more than one hundred)!')));
 
             $tags="";
-            if(isset($_POSt['post']['tags'])&&!empty($_POST['post']['tags'])) $tags=$_POST['post']['tags'];
+            if(isset($_POST['post']['tags'])&&!empty($_POST['post']['tags'])) $tags=$_POST['post']['tags'];
+            // exit($tags);
             $coords="";
-            if(isset($_POSt['post']['coords'])&&!empty($_POST['post']['tags'])) $coords=$_POST['post']['coords'];
+            if(isset($_POST['post']['coords'])&&!empty($_POST['post']['tags'])) $coords=$_POST['post']['coords'];
 
             if(!shop::does_category_exist($categiries)) exit(json_encode(array('result'=>0,'message'=>'Category does not exist!')));
             if(!shop::does_aisle_exist($aisles)) exit(json_encode(array('result'=>0,'message'=>'Aisle does not exist!')));

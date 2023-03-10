@@ -13,7 +13,7 @@
 
 ?>
 
-<div class="row h-100 p-3" id="auth">
+<div class="row h-100" id="auth">
     <div class="d-flex align-items-center justify-content-center vh-100 text-white col-12">
         <div class="text-center home-div" attr="init">
             <h1 class="display-1 fw-bold">Loading</h1>
