@@ -129,6 +129,8 @@ var debug=true;
         let categiries=row.find('select[attr=categiries]').eq(0).val();
         let aisles=row.find('select[attr=aisles]').eq(0).val();
         let shelf=row.find('input[attr=shelf]').eq(0).val();
+        let tags=row.find('input[attr=tags]').eq(0).val();
+        let coords=row.find('textarea[attr=coords]').eq(0).val();
 
         if(urlname==''||barcode==''||price==''||shelf=='') {
             $('.app-window[attr=product] input[type=button][attr=submit]').removeAttr('disabled');
@@ -136,14 +138,14 @@ var debug=true;
             return;
         }
 
-        $.post('/scripts/admin.php',{type:'create_product',post:{name:name,urlname:urlname,barcode:barcode,price:price,stock:stock,categiries:categiries,aisles:aisles,shelf:shelf,image:image}},function(data) {
+        $.post('/scripts/admin.php',{type:'create_product',post:{name:name,urlname:urlname,barcode:barcode,price:price,stock:stock,categiries:categiries,aisles:aisles,shelf:shelf,image:image,tags:tags,coords:coords}},function(data) {
             if(debug) console.log(data);
             if(!isJSON(data)) {error_cannotread();return;}
             data=JSON.parse(data);
             if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
             // if(!isDataValid(data)) {error_errordatanotval(data);return;}
             getAllAisles();
-            row.find('input[attr=name],input[attr=urlname],input[attr=barcode],input[attr=price],input[attr=image],input[attr=stock],input[attr=shelf]').val('');
+            row.find('input[attr=name],input[attr=urlname],input[attr=barcode],input[attr=price],input[attr=image],input[attr=stock],input[attr=shelf],input[attr=tags],textarea[attr=coords]').val('');
 
             row.find('select[attr=categiries]').val( row.find('select[attr=categiries] option:first').val() );
             row.find('select[attr=aisles]').val( row.find('select[attr=aisles] option:first').val() );
@@ -215,8 +217,8 @@ var debug=true;
             if(!isDataValid(data)) {error_errordatanotval(data);return;}
 
             if(row.find('input[attr=name]').eq(0).val()=='') {
-                row.find('input[attr=name]').eq(0).val(data.data.products.title);
-                if(data.data.products.images[0]!=undefined) row.find('input[attr=image]').eq(0).val(data.data.products.images[0]);
+                row.find('input[attr=name]').eq(0).val(data.data.products[0].title);
+                if(data.data.products[0].images[0]!=undefined) row.find('input[attr=image]').eq(0).val(data.data.products[0].images[0]);
             }
 
             swal.fire('Created!','Created that product for you','success');

@@ -24,6 +24,10 @@
             $responses = curl_exec($ch);
             // $info=curl_getinfo($ch);
             curl_close($ch);
+
+            
+            if($responses=='') return array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_02; barcode expired?');
+
             $file_url='';
             if(file_exists('../../../barcode_cache/info.txt')) $file_url='../../../barcode_cache';
             elseif(file_exists('../../barcode_cache/info.txt')) $file_url='../../barcode_cache';
@@ -34,14 +38,14 @@
                 $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
                 fwrite($file_handle, $responses);
                 fclose($file_handle);
-            }catch(Exception $e){return json_encode(array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_01'));}
+            }catch(Exception $e){return array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_01');}
 
             $name='';
             // print_r($responses);
             if(general::isJSON($responses)) $responses=json_decode($responses,true);
 
             if(isset($responses['products'][0]['title'])) $name=$responses['products'][0]['title'];
-            return array('result'=>true,'message'=>'Create barcode entry!','data'=>array('name'=>$name));
+            return array('result'=>true,'message'=>'Create barcode entry!','data'=>array('name'=>$name,'response'=>$responses));
         }
         public static function read_barcode_file($barcode=null) {
             if($barcode==null) return array('result'=>false,'message'=>'Barcode was empty!');

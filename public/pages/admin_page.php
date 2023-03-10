@@ -68,9 +68,13 @@
                     <input type="input" class="form-control input-md" attr="name" />
                     <p>Leave blank and we will use API name</p>
                 </div>
-                <div class="col-6 mt-2">
+                <div class="col-3 mt-2">
                     <h4>URL Name</h4>
                     <input type="input" class="form-control input-md" attr="urlname" />
+                </div>
+                <div class="col-3 mt-2">
+                    <h4>Tags <small class="text-info">(optional)</small></h4>
+                    <input type="input" class="form-control input-md" attr="tags" />
                 </div>
                 <div class="col-6 mt-2">
                     <h4>Barcode</h4>
@@ -99,6 +103,11 @@
                 <div class="col-6 mt-2">
                     <h4>Shelf</h4>
                     <input type="number" class="form-control input-md" attr="shelf" />
+                </div>
+                <div class="col-12 mt-2">
+                    <h4>Coords</h4>
+                    <textarea class="form-control input-md" attr="coords" rows="3"></textarea>
+                    <label class="label text-warning">Must be json, eg: <small>[["-146.39","148.39"],["-1397.2","1580.19"]]</small> (mutiple locations)</label>
                 </div>
                 <div class="col-6 mt-2">
                     <input type="button" class="btn btn-md btn-success" attr="submit" value="Create" /> 

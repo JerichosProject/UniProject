@@ -127,6 +127,11 @@
             $stock=preg_replace('/\s+/', ' ',$_POST['post']['stock']);
             if($stock<0||$stock>7000) exit(json_encode(array('result'=>0,'message'=>'Product (post.stock) was out of bounds (less than zero or more than one hundred)!')));
 
+            $tags="";
+            if(isset($_POSt['post']['tags'])&&!empty($_POST['post']['tags'])) $tags=$_POST['post']['tags'];
+            $coords="";
+            if(isset($_POSt['post']['coords'])&&!empty($_POST['post']['tags'])) $coords=$_POST['post']['coords'];
+
             if(!shop::does_category_exist($categiries)) exit(json_encode(array('result'=>0,'message'=>'Category does not exist!')));
             if(!shop::does_aisle_exist($aisles)) exit(json_encode(array('result'=>0,'message'=>'Aisle does not exist!')));
 
@@ -138,9 +143,9 @@
             if($name=='') $name=$b['data']['name'];
 
             $stmt_ins_txt="INSERT INTO `tbl_products`
-                (`name`,`urlname`,`barcode`,`apilink`,`price`,`stock`,`image`,`catid`,`aisleid`,`shelf`)
+                (`name`,`urlname`,`barcode`,`apilink`,`price`,`stock`,`image`,`catid`,`aisleid`,`shelf`,`tags`,`locations`)
                 VALUES
-                (:name,:urlname,:barcode,:apilink,:price,:stock,:image,:catid,:aisleid,:shelf)
+                (:name,:urlname,:barcode,:apilink,:price,:stock,:image,:catid,:aisleid,:shelf,:tags,:coords)
             ";
             $stmt_ins=$dbh->prepare($stmt_ins_txt);
             $stmt_ins->execute(
@@ -154,7 +159,9 @@
                     ':image'=>$image,
                     ':catid'=>$categiries,
                     ':aisleid'=>$aisles,
-                    ':shelf'=>$shelf
+                    ':shelf'=>$shelf,
+                    ':tags'=>$tags,
+                    ':coords'=>$coords
 		        )
             );
 		    // if($stmt_ins->rowCount()>0) return array('result'=>1,'message'=>'Done!','id'=>$dbh->lastInsertId());
@@ -166,8 +173,12 @@
             $barcode=preg_replace('/\s+/', ' ',substr($_POST['post']['barcode'],0,60));
             if($barcode<0) exit(json_encode(array('result'=>0,'message'=>'Product (post.barcode) was out of bounds (less than zero or more than one hundred)!')));
 
-            $b=barcode::create_barcode($barcode);
-            // if(!$b['result']) exit(json_encode(array('result'=>0,'message'=>'Barcode API error, '.$b['message'].'!')));
+            
+            $read=barcode::read_barcode_file($barcode);
+            if(!$read['result']) {
+                $b=barcode::create_barcode($barcode);
+                if(!$b['result']) exit(json_encode(array('result'=>0,'message'=>'Barcode API error, '.$b['message'].'!')));
+            }
 
             $read=barcode::read_barcode_file($barcode);
             if(!$read['result']) exit(json_encode(array('result'=>0,'message'=>'Error, message: '.$read['message'])));
