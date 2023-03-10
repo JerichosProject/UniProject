@@ -174,7 +174,7 @@
             if($barcode<0) exit(json_encode(array('result'=>0,'message'=>'Product (post.barcode) was out of bounds (less than zero or more than one hundred)!')));
             
             
-            // exit('tes');
+            exit('tes');
             $read=barcode::read_barcode_file($barcode);
             if(!$read['result']) {
                 $b=barcode::create_barcode($barcode);
