@@ -34,13 +34,13 @@
             elseif(file_exists('../barcode_cache/info.txt')) $file_url='../barcode_cache';
             else return array('result'=>false,'message'=>'Could not create file, could not risk creating in an unknown directory.');
 
-            return array('result'=>false,$file_url);
             try{
                 $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
                 fwrite($file_handle, $responses);
                 fclose($file_handle);
             }catch(Exception $e){return array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_01');}
 
+            return array('result'=>false,$file_url);
             $name='';
             // print_r($responses);
             if(general::isJSON($responses)) $responses=json_decode($responses,true);
