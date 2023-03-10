@@ -43,7 +43,7 @@
                 return array('result'=>0,'message'=>'Cannot create file, error: cannot_create_with_class_01');
             }
 
-            return array('result'=>false,$file_url);
+            // return array('result'=>false,$file_url);
             $name='';
             // print_r($responses);
             if(general::isJSON($responses)) $responses=json_decode($responses,true);
