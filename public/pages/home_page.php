@@ -21,9 +21,12 @@
         <div class="text-center home-div"attr="welcome" style="display:none;">
             <div class="row">
                 <div class="col-12">
-                    <div class="pl-4 pl-4">
+                    <div style="position:absolute;top:0px;left:0px;width:100%;">
                         Need to contact me? <a href="mailto:1702201@student.uwtsd.ac.uk">1702201@student.uwtsd.ac.uk</a><br/>
-                        <button href="/home" class="mt-2 mb-2 btn btn-sm btn-primary" id="home-div-welcome-login">Login</button>
+                        <button class="mt-2 mb-2 btn btn-sm btn-primary" id="home-div-welcome-login">Login</button>
+                        <button class="mt-2 mb-2 btn btn-sm btn-dark login-cycle-option" attr="next">Next</button>
+                        <button class="mt-2 mb-2 btn btn-sm btn-info login-cycle-option" attr="previous">Previous</button>
+                        <button style="display:none;" class="mt-2 mb-2 btn btn-sm btn-secondary login-cycle-option" attr="resume">Resume cylce</button>
                     </div>
                     <div class="pl-4 pl-4 login-home-item">
                         <h1 class="display-5 fw-bold">Welcome!</h1>

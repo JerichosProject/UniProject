@@ -21,7 +21,6 @@ var interval=null;
                         if(current_slide>=max_slide) current_slide=0;
                         $('.login-home-item').eq(current_slide).fadeIn(500);
                     }, 800);
-                    console.log('interval')
                 }, 10000);
                 $('#auth div[attr=init]').slideUp(500);
                 $('#auth div[attr=welcome]').delay(800).slideDown(500);
@@ -33,6 +32,68 @@ var interval=null;
             }
         });
     }
+
+    function startCycle() {
+        if(interval!=null) return;
+
+        let current_slide=0;
+
+        
+        $('.login-home-item').each(function(k,i) {
+            if($(this).css('display')!='none') {
+                current_slide=k;
+                return false;
+            }
+        });
+
+        interval=setInterval(() => {
+            if(interval==null) return;
+            $('.login-home-item').fadeOut(500);
+            current_slide++;
+            nextCycle(current_slide,true)
+        }, 10000);
+    }
+    function nextCycle(slide,dir) {
+        let direction=true;// true = positive - false = negative;
+        if(dir!=undefined && dir==false) direction=false;
+
+        $('.login-home-item').fadeOut(500);
+
+        let max_slide=$('.login-home-item').length;
+        setTimeout(() => {
+            if(direction) slide++;
+            else slide--;
+
+            if(slide>=max_slide) slide=0;
+            $('.login-home-item').eq(slide).fadeIn(500);
+        }, 800);
+    }
+
+    $(document).on('click','.login-cycle-option',function() {
+        let attr=$(this).attr('attr');
+        if(attr=='resume') {
+            $('.login-cycle-option[attr=resume]').hide();
+            startCycle();
+            return;
+        }
+
+        $('.login-cycle-option[attr=resume]').show();
+
+        clearInterval(interval);
+        interval=null;
+        if($('.login-home-item').length==0) return;
+
+        let current_slide=0;
+
+        $('.login-home-item').each(function(k,i) {
+            if($(this).css('display')!='none') {
+                current_slide=k;
+                return false;
+            }
+        });
+        
+        nextCycle(current_slide,(attr=='next'?true:false));
+    });
 
     $(document).on('click','#home-div-welcome-login',function() {
         $('#auth div[attr=welcome]').fadeOut(500);
