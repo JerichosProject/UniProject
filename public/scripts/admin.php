@@ -168,6 +168,7 @@
             exit(json_encode(array('result'=>1,'message'=>'Created product!')));
         break;
         case 'create_product_info':
+            exit('tes');
             if(!isset($_POST['post']['barcode'])||!is_numeric($_POST['post']['barcode'])) exit(json_encode(array('result'=>0,'message'=>'Param post.barcode not set or is not number!')));
 
             $barcode=preg_replace('/\s+/', ' ',substr($_POST['post']['barcode'],0,60));
