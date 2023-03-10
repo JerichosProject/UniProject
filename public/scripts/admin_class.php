@@ -22,7 +22,6 @@
                 CURLOPT_CUSTOMREQUEST  => "GET"
             ));
             $responses = curl_exec($ch);
-            return array('result'=>false,$responses);
             // $info=curl_getinfo($ch);
             curl_close($ch);
 
@@ -35,6 +34,7 @@
             elseif(file_exists('../barcode_cache/info.txt')) $file_url='../barcode_cache';
             else return array('result'=>false,'message'=>'Could not create file, could not risk creating in an unknown directory.');
 
+            return array('result'=>false,$file_url);
             try{
                 $file_handle = fopen($file_url.'/'.$barcode.'.json', 'w');
                 fwrite($file_handle, $responses);
