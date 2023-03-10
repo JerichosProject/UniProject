@@ -174,13 +174,13 @@
             if($barcode<0) exit(json_encode(array('result'=>0,'message'=>'Product (post.barcode) was out of bounds (less than zero or more than one hundred)!')));
             
             
-            exit('tes');
             $read=barcode::read_barcode_file($barcode);
             if(!$read['result']) {
                 $b=barcode::create_barcode($barcode);
                 if(!$b['result']) exit(json_encode(array('result'=>0,'message'=>'Barcode API error, '.$b['message'].'!')));
             }
-
+            
+            exit('tes');
             $read=barcode::read_barcode_file($barcode);
             if(!$read['result']) exit(json_encode(array('result'=>0,'message'=>'Error, message: '.$read['message'])));
 
