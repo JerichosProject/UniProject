@@ -335,6 +335,18 @@
 
       });
 
+      //https://stackoverflow.com/questions/65073619/how-can-i-do-to-change-the-color-of-the-marker thanks to them;
+      const redIcon = new L.Icon({
+        iconUrl:
+          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
       <?php
         $barcode=null;
         if(isset($_GET['barcode'])&&is_numeric($_GET['barcode'])) $barcode=$_GET['barcode'];
@@ -349,7 +361,7 @@
                 $long=$loc[0];
                 $lat=$loc[1];
                 echo '
-                  var marker = L.marker(['.$long.','.$lat.']).addTo(map);
+                  var marker = L.marker(['.$long.','.$lat.']'.($row['verification']==1?',{icon: redIcon}':'').').addTo(map);
                   marker.bindTooltip("'.substr($row['name'],0,20).'", {permanent: true, direction:"center", className: \'polygon-labels\'});
                 ';
               }
@@ -368,7 +380,8 @@
                   $long=$loc[0];
                   $lat=$loc[1];
                   echo '
-                    var marker = L.marker(['.$long.','.$lat.']).addTo(map);
+                    var marker = L.marker(['.$long.','.$lat.']'.($row['verification']==1?',{icon: redIcon}':'').').addTo(map);
+
                     marker.bindPopup("'.general::html_escape(general::emoji_remove($row['name'])).'");
                   ';
                 }
