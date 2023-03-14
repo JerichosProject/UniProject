@@ -41,6 +41,15 @@
             $text = preg_replace('/\s+/', ' ', $text);
             return iconv('ISO-8859-15', 'UTF-8', $text);
         }
+        public static function html_escape($str) {
+            $encoding = mb_detect_encoding($str, mb_detect_order(), false);
+        
+            if($encoding == "UTF-8") {
+                $str = mb_convert_encoding($str, 'UTF-8', 'UTF-8');    
+            }
+            $out = iconv(mb_detect_encoding($str, mb_detect_order(), false), "UTF-8//IGNORE", $str);
+            return htmlspecialchars($out, ENT_QUOTES, 'UTF-8');
+        }
     }
 
     class get_page {

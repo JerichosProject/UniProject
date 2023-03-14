@@ -355,6 +355,34 @@
               }
             }
           }
+        }else{
+          //show all products - 14/3/23 - suggestion from guest
+          // bind popup documentation - thanks to: https://gis.stackexchange.com/questions/31951/showing-popup-on-mouse-over-not-on-click-using-leaflet ;
+          $stmt=$dbh->prepare('SELECT * FROM `tbl_products`');
+          $stmt->execute();
+          if($stmt->rowCount()>0) {
+            $rows=$stmt->fetchAll();
+            foreach($rows as $row) {
+              if($row['locations']!='') {
+                foreach(json_decode($row['locations'],true) as $loc) {
+                  $long=$loc[0];
+                  $lat=$loc[1];
+                  echo '
+                    var marker = L.marker(['.$long.','.$lat.']).addTo(map);
+                    marker.bindPopup("'.general::html_escape(general::emoji_remove($row['name'])).'");
+                  ';
+                }
+              }
+            }
+            echo '
+            marker.on(\'mouseover\', function (e) {
+                this.openPopup();
+            });
+            marker.on(\'mouseout\', function (e) {
+                this.closePopup();
+            });
+            ';
+          }
         }
       ?>
 
