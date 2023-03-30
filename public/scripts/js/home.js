@@ -96,8 +96,18 @@ var interval=null;
     });
 
     $(document).on('click','#home-div-welcome-login',function() {
-        $('#auth div[attr=welcome]').fadeOut(500);
-        $('#auth div[attr=signin]').delay(800).fadeIn(500);
+        // $('#auth div[attr=welcome]').fadeOut(500);
+        // $('#auth div[attr=signin]').delay(800).fadeIn(500);
+        $.post('/scripts/home.php',{type:'start_session',post:{password:''}},function(data) {
+            if(debug) console.log(data);
+            if(!isJSON(data)) {error_cannotread();return;}
+            data=JSON.parse(data);
+            if(!isJSONSuccess(data)) {error_erroroccured(data);return;}
+
+            $('#auth').fadeOut(500);
+            getWindowPane(true);
+            $('#app').delay(800).fadeIn(500);
+        });
         if(interval!=null) clearInterval(interval);
     });
     $(document).on('click','#auth div[attr=signin] button.login',function() {
@@ -467,6 +477,8 @@ var interval=null;
             if(!isDataValid(data)) {error_errordatanotval(data);return;}
             let result=data.data;
             if(result.no_products!=undefined) {
+                $('.app-window[attr=shopping_cart] span[attr="view_all"]').empty();
+
                 $('.app-window[attr=shopping_cart] div[attr=list]').html('<div class="row mt-2"><div class="col-12"><div class="alert alert-warning"><h4>Nothing found</h4><p>Your shopping list is empty.</p></div></div></div>');
                 return;
             }
@@ -480,6 +492,9 @@ var interval=null;
                     out+='</div>';
                 out+='</div>';
             });
+
+            $('.app-window[attr=shopping_cart] span[attr="view_all"]').html(' <a class="btn btn-sm btn-primary" href="/maptiler/leaflet.php?shoppinglist=true">Show all on map</a>');
+
             $('.app-window[attr=shopping_cart] div[attr=list]').html('<div class="row mt-2">'+out+'</div>').fadeIn(500);
         }).always(function(data) {
         });

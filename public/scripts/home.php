@@ -15,14 +15,15 @@
             if(!isset($_POST['post']['password'])) exit(json_encode(array('result'=>0,'message'=>'Param missing, post.password!')));
             if(gettype($_POST['post']['password'])!=='string') exit(json_encode(array('result'=>0,'message'=>'Param post.password not string!')));
 
-            if($_POST['post']['password']!='uniproject23'&&$_POST['post']['password']!='admin999') exit(json_encode(array('result'=>0,'message'=>'Password does not match required!')));
+            // if($_POST['post']['password']!='uniproject23'&&$_POST['post']['password']!='admin999') exit(json_encode(array('result'=>0,'message'=>'Password does not match required!')));
 
-            $password=$_POST['post']['password'];
+            // $password=$_POST['post']['password'];
+            $isadmin=false;
+            if(isset($_POST['post']['password'])&&gettype($_POST['post']['password']=='string')&&$_POST['post']['password']=='admin999') $isadmin=true;
 
-            $cses=session::createSession(($password=='admin999'?true:false));
-            if($cses['result']==0) {
-                exit(json_encode(array('result'=>0,'message'=>'Error: '.$cses['message'])));
-            }
+            $cses=session::createSession(($isadmin?true:false));
+            if($cses['result']==0) exit(json_encode(array('result'=>0,'message'=>'Error: '.$cses['message'])));
+
             exit(json_encode(array('result'=>1,'message'=>'Created session.')));
         break;
         case 'session_logout':
