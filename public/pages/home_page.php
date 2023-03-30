@@ -56,13 +56,13 @@
                 </div>
             </div>
         </div>
-        <div class="text-center home-div"attr="signin" style="display:none;">
+        <!-- <div class="text-center home-div"attr="signin" style="display:none;">
             <h1 class="display-1 fw-bold">Password Required</h1>
             <p class="lead">
                 <input type="password" placeholder="Password" value="" autocomplete="new-password"  class="input-lg form-control" aria-label="Password" aria-describedby="inputGroup-sizing-lg" id="home-login-password">
                 <button class="btn btn-md btn-primary w-100 mt-2 login">Enter</button>
             </p>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -172,7 +172,7 @@
                     <div class="rounded p-1 bg-secondary">
                         <h4>Your shopping list</h4>
                         <p>
-                            Your <b>Shopping List</b> is a reminder about product(s) you may need to get whilst shopping. You can add and remove items from your list at any time — whilst in-store you can refer to this list and search where the products are.
+                            Your <b>Shopping List</b> is a reminder about product(s) you may need to get whilst shopping. You can add and remove items from your list at any time — whilst in-store you can refer to this list and search where the products are.<span attr="view_all"></span>
                         </p>
                     </div>
                 </div>
