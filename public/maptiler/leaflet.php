@@ -367,6 +367,44 @@
               }
             }
           }
+        }elseif(isset($_GET['shoppinglist'])&&$_GET['shoppinglist']==true) {
+          print_r(session::isLoggedIn());
+          if(session::isLoggedIn()) {
+            $stmtCart=$dbh->prepare('SELECT * FROM `tbl_shopping_cart` WHERE `userid`=:userid');
+            $stmtCart->execute(array('userid'=>$_SESSION['smartshop']['id']));
+            if($stmtCart->rowCount()>0) {
+              $stmtProduct=$dbh->prepare('SELECT * FROM `tbl_products` WHERE `barcode`=:barcode LIMIT 1');
+
+              $rowsCart=$stmtCart->fetchAll();
+              foreach($rowsCart as $cart) {
+                $stmtProduct->execute(array('barcode'=>$cart['barcode']));
+                if($stmtProduct->rowCount()>0) {
+                  $rows=$stmtProduct->fetchAll();
+                  foreach($rows as $row) {
+                    if($row['locations']!='') {
+                      foreach(json_decode($row['locations'],true) as $loc) {
+                        $long=$loc[0];
+                        $lat=$loc[1];
+                        echo '
+                          var marker = L.marker(['.$long.','.$lat.']'.($row['verification']==1?',{icon: redIcon}':'').').addTo(map);
+      
+                          marker.bindPopup("'.general::html_escape(general::emoji_remove($row['name'])).'");
+                        ';
+                      }
+                    }
+                  }
+                  echo '
+                  marker.on(\'mouseover\', function (e) {
+                      this.openPopup();
+                  });
+                  marker.on(\'mouseout\', function (e) {
+                      this.closePopup();
+                  });
+                  ';
+                }
+              }
+            }
+          }
         }else{
           //show all products - 14/3/23 - suggestion from guest
           // bind popup documentation - thanks to: https://gis.stackexchange.com/questions/31951/showing-popup-on-mouse-over-not-on-click-using-leaflet ;
