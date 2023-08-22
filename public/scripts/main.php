@@ -11,8 +11,8 @@
     $GLOBALS['errors']=[];
     $GLOBALS['page']=array('slashes'=>array(),'query'=>array(),'info'=>array());
 
-    if(file_exists('../access.ini')) $GLOBALS['creds']=parse_ini_file('../access.ini');
-    else $GLOBALS['creds']=parse_ini_file('../../access.ini');
+    if(file_exists('../access_creds.ini')) $GLOBALS['creds']=parse_ini_file('../access_creds.ini');
+    else $GLOBALS['creds']=parse_ini_file('../../access_creds.ini');
 
     require('session_class.php');
 
